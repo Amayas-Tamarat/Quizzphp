@@ -1,0 +1,77 @@
+.marquee {
+    background-color: rgb(138, 108, 108);
+    height: 40px;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    background-color: rgb(45, 40, 40);
+    height: 800px;
+    width: 100%;
+}
+
+.form {
+    display: flex;
+    justify-content: center;
+}
+
+.quizz {
+    background-color: rgb(234, 237, 240);
+    width: 70%;
+    height: 80%;
+    margin-left: 30px;
+}
+
+.qsm {
+    display: flex;
+    justify-content: center;
+    height: 80%;
+    width: 70%;
+    border: 2px solid rgb(104, 98, 98);
+    border-radius: 20px;
+    margin-left: 30px;
+    margin-top: 50px;
+    
+
+}
+.pseudo {
+    position: absolute;
+     left: 300px;
+    height: 40px;
+    width: 80px;
+    background-color: azure;
+    margin-top: 10px;
+}
+
+.section2 {
+    position: absolute;
+     right: 300px;
+     height: 700px;
+     width: 20%;
+     border: 2px solid white;
+}
+#deconnexion {
+    margin-top: 20px;
+    margin-left: 100px;
+}
+
+.score {
+    height: 600px;
+    width:100% ;
+    border:2px solid white ;
+
+}
+
+#quizz {
+    height:500px ;
+    width: 800px;
+    border:2px solid rgb(56, 54, 54) ;
+    margin-top: 60px;
+    position: absolute;
+     left: 300px;
+
+}
+.label-h4 {
+    color: rgb(243, 243, 249);
+  }
