@@ -55,7 +55,7 @@
                             <label for="portugale">london</label>
 
                         </div>
-                        <button type="onsubmit">Send</button>
+                        <button type="onsubmit" class="btn btn-primary">Send</button>
                     </form>
                     
 
@@ -68,7 +68,7 @@
 
         </div>
         <div class="section2">
-            <button type="submit" id="deconnexion">Deconnecxion</button>
+            <button type="submit" id="deconnexion" class="btn btn-primary">Deconnecxion</button>
             <div class="score"></div>
         </div>
     </div>
