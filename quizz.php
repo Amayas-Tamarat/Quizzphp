@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once('./connect/connect.php')
 ?>
 
 
@@ -17,7 +18,9 @@ session_start();
 
 <body>
 
-<marquee class="marquee" ><h5 style="color: white;">***Welcome To Our QuiZz***</h5></marquee>
+    <marquee class="marquee">
+        <h5 style="color: white;">***Welcome To Our QuiZz***</h5>
+    </marquee>
 
     <div class="container">
         <div>
@@ -25,44 +28,37 @@ session_start();
             <div class="quizz" id="quizz">
                 <div class="qsm">
                     <form action="quizz.php" method="POST" onsubmit="return validationForm()">
-                        <legend>En quelle année le Titanic a-t-il coulé  :</legend>
+                        <?php
+                        $sql = ("SELECT * FROM  question");
+                        $query = $bdd->prepare($sql);
+                        $query->execute();
+                        $questions = $query->fetchAll(PDO::FETCH_ASSOC);
+                        foreach ($questions as $question) {
 
-                        <div>
-                            <input type="radio" id="1890" name="q1" value="1890" checked>
-                            <label for="1890">1890</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="1912" name="q1" value="1912">
-                            <label for="titanic">1912</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="1930" name="q1" value="1930">
-                            <label for="titanic">1930</label>
-
-                        </div>
-
-                        <legend>Quelle est la capitale du Portugal?  :</legend>
-
-                        <div>
-                            <input type="radio" id="paris" name="q2" value="paris" checked>
-                            <label for="portugale">paris</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="Lisbonne" name="q2" value="Lisbonne">
-                            <label for="portugale">lisbonne</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="london" name="q2" value="london">
-                            <label for="portugale">london</label>
-
-                        </div>
-                        <button type="onsubmit" class="btn btn-primary">Send</button>
+                            // echo $question['question'] . '<br>';
+                            $sql = 'SELECT * FROM `answer` WHERE id_question = :questionId';
+                            $request = $bdd->prepare($sql);
+                            $request->execute([
+                                ':questionId' => $question['id_question'],
+                            ]);
+                            $answers = $request->fetchAll(PDO::FETCH_ASSOC);
+                        ?>
+                            <fieldset>
+                                <legend><?php echo $question['question'] ?></legend>
+                                <?php foreach ($answers as $answer) { ?>
+                                    <div>
+                                        <input type="radio" id="<?php echo $answer['answer'] ?>"
+                                         name="<?php echo $question['id_question'] ?>" value="<?php echo $answer['answer'] ?>">
+                                        <label for="<?php echo $answer['answer'] ?>"><?php echo $answer['answer'] ?></label>
+                                    </div>
+                                <?php } ?>
+                            </fieldset>
+                        <?php
+                        }
+                        ?>
+                        <button type="onsubmit">Send</button>
                     </form>
-                    
+
 
                 </div>
                 <form>
