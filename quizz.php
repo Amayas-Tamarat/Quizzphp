@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 ?>
 
 
@@ -21,7 +22,13 @@ session_start();
 
     <div class="container">
         <div>
-            <div class="pseudo"></div>
+            <div class="pseudo">
+                <?php
+                foreach ($_SESSION["user"] as $user) {
+                   echo $user['username'];
+                }
+                ?>
+            </div>
             <div class="quizz" id="quizz">
                 <div class="qsm">
                     <form action="quizz.php" method="POST" onsubmit="return validationForm()">
