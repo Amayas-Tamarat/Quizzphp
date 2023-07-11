@@ -1,3 +1,9 @@
+<?php
+
+include_once('connect.php');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,58 +18,34 @@
 
 <body>
 
-<marquee class="marquee" ><h5 style="color: white;">***Welcome To Our QuiZz***</h5></marquee>
+    <marquee class="marquee">
+        <h5 style="color: white;">***Welcome To Our QuiZz***</h5>
+    </marquee>
 
     <div class="container">
         <div>
-            <div class="pseudo"></div>
+            <div class="pseudo">
+                <p><strong><?php echo $_POST['pseudo']; ?></strong></p>
+            </div>
             <div class="quizz" id="quizz">
                 <div class="qsm">
-                    <form action="quizz.php" method="POST" onsubmit="return validationForm()">
-                        <legend>En quelle année le Titanic a-t-il coulé  :</legend>
+                    <?php
+                    $query = "SELECT q.question, a.answer FROM question q INNER JOIN answer a ON q.id_question = a.id_question";
+                    $result = $query($conn, $query);
 
-                        <div>
-                            <input type="radio" id="1890" name="q1" value="1890" checked>
-                            <label for="1890">1890</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="1912" name="q1" value="1912">
-                            <label for="titanic">1912</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="1930" name="q1" value="1930">
-                            <label for="titanic">1930</label>
-
-                        </div>
-
-                        <legend>Quelle est la capitale du Portugal?  :</legend>
-
-                        <div>
-                            <input type="radio" id="paris" name="q2" value="paris" checked>
-                            <label for="portugale">paris</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="Lisbonne" name="q2" value="Lisbonne">
-                            <label for="portugale">lisbonne</label>
-                        </div>
-
-                        <div>
-                            <input type="radio" id="london" name="q2" value="london">
-                            <label for="portugale">london</label>
-
-                        </div>
-                        <button type="onsubmit">Send</button>
+                    while ($row = mysqli_fetch_assoc($result)) {
+                        $question = $row['question'];
+                        $answer = $row['answer'];
+                        echo "<p>$question</p>";
+                        echo "<p>$answer</p>";
+                    }
+                    ?>
+                    <button type="onsubmit">Send</button>
                     </form>
-                    
+
 
                 </div>
-                <form>
 
-
-                </form>
             </div>
 
         </div>

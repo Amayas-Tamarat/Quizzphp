@@ -11,10 +11,13 @@
     <marquee class="marquee" ><h5 style="color: white;">***Welcome To Our QuiZz***</h5></marquee>
    <div class="container">
    <div class="items"> 
+   
    <img class="logo" src="./css/image/logo.png" alt="">
-    <form class="form" action="quizz.php" method="POST">
-    <label for="pseudo"><h5 style="color: white;">pseudo</h5></label>
-        <input type="text" name="pseudo">
+   
+   <form class="form" action="./addPseudo.php" method="POST">
+    
+        <label for="pseudo"><h5 style="color: white;">pseudo</h5></label>
+        <input type="text" name="pseudo" id="pseudo" placeholder="pseudo">
 
 
         <button type="submit">Connecxion</button>
