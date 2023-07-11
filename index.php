@@ -1,3 +1,10 @@
+<?php
+session_start();
+include('./connect/log.php');
+login(':pseudo');
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +19,7 @@
    <div class="container">
    <div class="items"> 
    <img class="logo" src="./css/image/logo.png" alt="">
-    <form class="form" action="quizz.php" method="POST">
+    <form class="form"  method="POST">
     <label for="pseudo"><h5 style="color: white;">pseudo</h5></label>
         <input type="text" name="pseudo">
 
