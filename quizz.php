@@ -1,6 +1,7 @@
 <?php
 session_start();
-include_once('./connect/connect.php')
+include_once('./connect/connect.php');
+include('./process/question.php')
 ?>
 
 <!DOCTYPE html>
@@ -34,23 +35,25 @@ include_once('./connect/connect.php')
                         $query = $bdd->prepare($sql);
                         $query->execute();
                         $questions = $query->fetchAll(PDO::FETCH_ASSOC);
+                        shuffle ($questions);
                         foreach ($questions as $question) {
                             $sql = 'SELECT * FROM `answer` WHERE id_question = :questionId';
                             $request = $bdd->prepare($sql);
                             $request->execute([
                                 ':questionId' => $question['id_question'],
+                                
                             ]);
                             $answers = $request->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                             <fieldset>
                                 <legend><?php echo $question['question'] ?></legend>
                                 <?php foreach ($answers as $answer) { ?>
-                                    <div>
-                                        <input type="radio" id="<?php echo $answer['answer'] ?>"
-                                         name="<?php echo $question['id_question'] ?>" value="<?php echo $answer['answer'] ?>">
-                                        <label for="<?php echo $answer['answer'] ?>"><?php echo $answer['answer'] ?></label>
-                                    </div>
-                                <?php } ?>
+                                <div>
+                                <input type="radio" id="<?php echo $answer['answer'] ?>"
+                                     name="answer[<?php echo $question['id_question'] ?>]" value="<?php echo $answer['id_answers'] ?>">
+                                    <label for="<?php echo $answer['answer'] ?>"><?php echo $answer['answer'] ?></label>
+                                </div>
+                                    <?php } ?>
                             </fieldset>
                         <?php
                         }
@@ -58,7 +61,7 @@ include_once('./connect/connect.php')
                         <button type="onsubmit">Send</button>
                     </form>
                 </div>
-                <?php echo $_POST[$question['id_question']]; ?>
+                <?php question(); ?>
             </div>
         </div>
         <div class="section2">
