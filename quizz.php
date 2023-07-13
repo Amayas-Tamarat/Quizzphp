@@ -23,12 +23,12 @@ include('./process/question.php')
             <div class="pseudo">
                 <?php
                 foreach ($_SESSION["user"] as $user) {
-                   echo $user['username'];
+                    echo $user['username'];
                 }
                 ?>
             </div>
             <div class="quizz" id="quizz">
-                <div class="qsm">
+                <div class="qsm" id="scroll" onscroll="myFunction()">
                     <form action="quizz.php" method="POST" onsubmit="return validationForm()">
                         <?php
                         $sql = ("SELECT * FROM  question");
@@ -46,9 +46,9 @@ include('./process/question.php')
                             $answers = $request->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                             <fieldset>
-                                <legend><?php echo $question['question'] ?></legend>
+                                <legend style="color: black; font-size: 22px;"><?php echo $question['question'] ?></legend>
                                 <?php foreach ($answers as $answer) { ?>
-                                <div>
+                                <div style="color: red; font-size: 20px;">
                                 <input type="radio" id="<?php echo $answer['answer'] ?>"
                                      name="answer[<?php echo $question['id_question'] ?>]" value="<?php echo $answer['id_answers'] ?>">
                                     <label for="<?php echo $answer['answer'] ?>"><?php echo $answer['answer'] ?></label>
@@ -58,18 +58,60 @@ include('./process/question.php')
                         <?php
                         }
                         ?>
-                        <button type="onsubmit">Send</button>
+                        <button type="onsubmit" class="btn btn-primary">Send</button>
                     </form>
+
+                    </div>
+                    <div class="timer" id="timer">
+                        <script>
+                            function startTimer(duration, display) {
+                                let timer = duration,
+                                    minutes, seconds;
+                                setInterval(function() {
+                                    minutes = parseInt(timer / 60, 10);
+                                    seconds = parseInt(timer % 60, 10);
+
+                                    minutes = minutes < 10 ? "0" + minutes : minutes;
+                                    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                                    display.textContent = minutes + ":" + seconds;
+
+                                    if (--timer < 0) {
+                                        timer = duration;
+                                    }
+                                }, 1000);
+                            }
+
+                            window.onload = function() {
+                                let duration = 420;
+                                let display = document.querySelector('#timer');
+                                startTimer(duration, display);
+                            };
+                        </script>
+                    </div>
                 </div>
                 <?php question(); ?>
             </div>
         </div>
         <div class="section2">
         <a href="./connect/logout.php"><button>deconnection</button></a>
-            <div class="score"></div>
+            <div class="score">
+                <?php
+                $sql = 'SELECT score,username from `score`,`users` where score.id_score = users.id_score ORDER BY score DESC;';
+                $request = $bdd->prepare($sql);
+                $request->execute();
+                $scores = $request->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($scores as $score) {
+                    echo $score['score'] . ' = ' . $score['username'] . '<br>';
+                }
+
+                ?>
+
+            </div>
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
