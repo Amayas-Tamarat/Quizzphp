@@ -17,7 +17,7 @@ function question(){
         $query->bindValue(':idAnswer', $selectedAnswer, PDO::PARAM_STR);
         $query->execute();
         }
-        header('Location:./process/score.php');
+        header('Location:./result.php');
       }
 }
 }
