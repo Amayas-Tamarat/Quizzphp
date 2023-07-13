@@ -59,7 +59,11 @@ include('./process/question.php')
                         <?php
                         }
                         ?>
+<<<<<<< HEAD
                         <button type="onsubmit" class="btn btn-primary">Send</button>
+=======
+                         <button type="onsubmit">Send</button>
+>>>>>>> score
                     </form>
 
                 </div>
