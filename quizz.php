@@ -1,7 +1,7 @@
 <?php
 session_start();
 include_once('./connect/connect.php');
-include('./process/question.php')
+include_once('./process/question.php');
 ?>
 
 <!DOCTYPE html>
@@ -16,9 +16,9 @@ include('./process/question.php')
 </head>
 
 <body>
-    <marquee class="marquee">
+    <header class="marquee">
         <h5 style="color: white;">***Welcome To Our QuiZz***</h5>
-    </marquee>
+    </header>
 
     <div class="container">
         <div>
@@ -31,7 +31,7 @@ include('./process/question.php')
             </div>
             <div class="quizz" id="quizz">
                 <div class="qsm" id="scroll" onscroll="myFunction()">
-                    <form action="quizz.php" method="POST" onsubmit="return validationForm()">
+                    <form action="process/process_form_quizz.php" method="POST">
                         <?php
                         $sql = ("SELECT * FROM  question");
                         $query = $bdd->prepare($sql);
@@ -104,16 +104,12 @@ include('./process/question.php')
                 foreach ($scores as $score) {
                     echo $score['score'] . ' = ' . $score['username'] . '<br>';
                 }
-
                 ?>
-
             </div>
         </div>
-        <?php question(); ?>
+        
     </div>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
-
 </body>
 
 </html>
