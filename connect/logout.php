@@ -1,5 +1,5 @@
 <?php
 session_start();
 session_destroy();
-header('Location:../quizz.php');
+header('Location:../index.php');
 ?>

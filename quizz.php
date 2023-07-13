@@ -58,7 +58,7 @@ include('./process/question.php')
                         <?php
                         }
                         ?>
-                        <button type="onsubmit">Send</button>
+                         <button type="onsubmit">Send</button>
                     </form>
                 </div>
                 <?php question(); ?>
