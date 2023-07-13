@@ -6,6 +6,7 @@ include('./process/question.php')
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,6 +14,7 @@ include('./process/question.php')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <title>Document</title>
 </head>
+
 <body>
     <marquee class="marquee">
         <h5 style="color: white;">***Welcome To Our QuiZz***</h5>
@@ -35,25 +37,24 @@ include('./process/question.php')
                         $query = $bdd->prepare($sql);
                         $query->execute();
                         $questions = $query->fetchAll(PDO::FETCH_ASSOC);
-                        shuffle ($questions);
+                        shuffle($questions);
                         foreach ($questions as $question) {
                             $sql = 'SELECT * FROM `answer` WHERE id_question = :questionId';
                             $request = $bdd->prepare($sql);
                             $request->execute([
                                 ':questionId' => $question['id_question'],
-                                
+
                             ]);
                             $answers = $request->fetchAll(PDO::FETCH_ASSOC);
                         ?>
                             <fieldset>
                                 <legend style="color: black; font-size: 22px;"><?php echo $question['question'] ?></legend>
                                 <?php foreach ($answers as $answer) { ?>
-                                <div style="color: red; font-size: 20px;">
-                                <input type="radio" id="<?php echo $answer['answer'] ?>"
-                                     name="answer[<?php echo $question['id_question'] ?>]" value="<?php echo $answer['id_answers'] ?>">
-                                    <label for="<?php echo $answer['answer'] ?>"><?php echo $answer['answer'] ?></label>
-                                </div>
-                                    <?php } ?>
+                                    <div style="color: red; font-size: 20px;">
+                                        <input type="radio" id="<?php echo $answer['answer'] ?>" name="answer[<?php echo $question['id_question'] ?>]" value="<?php echo $answer['id_answers'] ?>">
+                                        <label for="<?php echo $answer['answer'] ?>"><?php echo $answer['answer'] ?></label>
+                                    </div>
+                                <?php } ?>
                             </fieldset>
                         <?php
                         }
@@ -61,40 +62,40 @@ include('./process/question.php')
                         <button type="onsubmit" class="btn btn-primary">Send</button>
                     </form>
 
-                    </div>
-                    <div class="timer" id="timer">
-                        <script>
-                            function startTimer(duration, display) {
-                                let timer = duration,
-                                    minutes, seconds;
-                                setInterval(function() {
-                                    minutes = parseInt(timer / 60, 10);
-                                    seconds = parseInt(timer % 60, 10);
-
-                                    minutes = minutes < 10 ? "0" + minutes : minutes;
-                                    seconds = seconds < 10 ? "0" + seconds : seconds;
-
-                                    display.textContent = minutes + ":" + seconds;
-
-                                    if (--timer < 0) {
-                                        timer = duration;
-                                    }
-                                }, 1000);
-                            }
-
-                            window.onload = function() {
-                                let duration = 420;
-                                let display = document.querySelector('#timer');
-                                startTimer(duration, display);
-                            };
-                        </script>
-                    </div>
                 </div>
-                <?php question(); ?>
+                <div class="timer" id="timer">
+                    <script>
+                        function startTimer(duration, display) {
+                            let timer = duration,
+                                minutes, seconds;
+                            setInterval(function() {
+                                minutes = parseInt(timer / 60, 10);
+                                seconds = parseInt(timer % 60, 10);
+
+                                minutes = minutes < 10 ? "0" + minutes : minutes;
+                                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                                display.textContent = minutes + ":" + seconds;
+
+                                if (--timer < 0) {
+                                    timer = duration;
+                                }
+                            }, 1000);
+                        }
+
+                        window.onload = function() {
+                            let duration = 420;
+                            let display = document.querySelector('#timer');
+                            startTimer(duration, display);
+                        };
+                    </script>
+                </div>
             </div>
+            <?php question(); ?>
         </div>
+
         <div class="section2">
-        <a href="./connect/logout.php"><button>deconnection</button></a>
+            <a href="./connect/logout.php"><button>deconnection</button></a>
             <div class="score">
                 <?php
                 $sql = 'SELECT score,username from `score`,`users` where score.id_score = users.id_score ORDER BY score DESC;';
@@ -110,6 +111,7 @@ include('./process/question.php')
             </div>
         </div>
     </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
 
 </body>
